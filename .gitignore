@@ -1,1 +1,20 @@
-backend/TodoList/.vs
+# .NET Core
+backend/TodoList/bin/
+backend/TodoList/obj/
+backend/TodoList/.vs/
+
+# Angular
+frontend/todo-list-frontend/node_modules/
+frontend/todo-list-frontend/dist/
+frontend/todo-list-frontend/.angular/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
