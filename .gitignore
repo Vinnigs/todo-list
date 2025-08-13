@@ -3,6 +3,8 @@ backend/TodoList/bin/
 backend/TodoList/obj/
 backend/TodoList/.vs/
 backend/.vs/
+**/bin/
+**/obj/
 
 # Angular
 frontend/node_modules/
@@ -10,9 +12,14 @@ frontend/dist/
 frontend/.angular/
 frontend/.vs/
 
-# IDE
+# IDE e Editores
 .vscode/
 .idea/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
 # OS
 .DS_Store
