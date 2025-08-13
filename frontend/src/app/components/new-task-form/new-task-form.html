@@ -1,0 +1,27 @@
+<form (ngSubmit)="onSubmit()" class="new-task-form">
+  <div class="input-group">
+    <input 
+        type="text" 
+        [value]="taskTitle()"
+        (input)="updateTitle($event)"
+        (keypress)="onKeyPress($event)"
+        placeholder="Adicionar nova tarefa..." 
+        [disabled]="isSubmitting()"
+        class="task-input"
+        required
+    />
+    
+    <div class="button-container">
+      <button 
+        type="submit" 
+        [disabled]="isSubmitting()"
+        class="submit-button">
+        {{ isSubmitting() ? 'Adicionando...' : 'Adicionar' }}
+      </button>
+      
+      <div *ngIf="showValidationTooltip()" class="custom-tooltip">
+        {{ validationMessage }}
+      </div>
+    </div>
+  </div>
+</form>

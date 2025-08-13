@@ -1,0 +1,252 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Moq;
+using Xunit;
+using TodoList.Api.Controllers;
+using TodoList.Application.DTOs;
+using TodoList.Application.UseCases;
+
+namespace TodoList.Tests.Controllers;
+
+public class TaskControllerTests
+{
+    private readonly Mock<CreateTaskUseCase> _mockCreateTaskUseCase;
+    private readonly Mock<GetAllTasksUseCase> _mockGetAllTasksUseCase;
+    private readonly Mock<GetTaskByIdUseCase> _mockGetTaskByIdUseCase;
+    private readonly Mock<UpdateTaskUseCase> _mockUpdateTaskUseCase;
+    private readonly Mock<DeleteTaskUseCase> _mockDeleteTaskUseCase;
+    private readonly TaskController _controller;
+
+    public TaskControllerTests()
+    {
+        _mockCreateTaskUseCase = new Mock<CreateTaskUseCase>();
+        _mockGetAllTasksUseCase = new Mock<GetAllTasksUseCase>();
+        _mockGetTaskByIdUseCase = new Mock<GetTaskByIdUseCase>();
+        _mockUpdateTaskUseCase = new Mock<UpdateTaskUseCase>();
+        _mockDeleteTaskUseCase = new Mock<DeleteTaskUseCase>();
+
+        _controller = new TaskController(
+            _mockCreateTaskUseCase.Object,
+            _mockGetAllTasksUseCase.Object,
+            _mockGetTaskByIdUseCase.Object,
+            _mockUpdateTaskUseCase.Object,
+            _mockDeleteTaskUseCase.Object);
+    }
+
+    [Fact]
+    public async Task CreateTask_WithValidDto_ShouldReturnCreatedResult()
+    {
+        // Arrange
+        var createTaskDto = new CreateTaskDto { Title = "Test Task" };
+        var expectedResponse = new TaskResponseDto
+        {
+            Id = 1,
+            Title = "Test Task",
+            IsCompleted = false,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _mockCreateTaskUseCase.Setup(x => x.ExecuteAsync(createTaskDto))
+                             .ReturnsAsync(expectedResponse);
+
+        // Act
+        var result = await _controller.CreateTask(createTaskDto);
+
+        // Assert
+        var createdResult = Assert.IsType<CreatedAtActionResult>(result);
+        Assert.Equal(nameof(_controller.GetTaskById), createdResult.ActionName);
+        Assert.Equal(expectedResponse.Id, ((dynamic)createdResult.RouteValues!).id);
+        Assert.Equal(expectedResponse, createdResult.Value);
+
+        _mockCreateTaskUseCase.Verify(x => x.ExecuteAsync(createTaskDto), Times.Once);
+    }
+
+    [Fact]
+    public async Task CreateTask_UseCaseThrowsArgumentException_ShouldPropagateException()
+    {
+        // Arrange
+        var createTaskDto = new CreateTaskDto { Title = "" };
+        var expectedMessage = "Título é obrigatório.";
+
+        _mockCreateTaskUseCase.Setup(x => x.ExecuteAsync(createTaskDto))
+                             .ThrowsAsync(new ArgumentException(expectedMessage));
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<ArgumentException>(
+            () => _controller.CreateTask(createTaskDto));
+
+        Assert.Equal(expectedMessage, exception.Message);
+        _mockCreateTaskUseCase.Verify(x => x.ExecuteAsync(createTaskDto), Times.Once);
+    }
+
+    [Fact]
+    public async Task GetAllTasks_ShouldReturnOkResultWithTasks()
+    {
+        // Arrange
+        var expectedTasks = new List<TaskResponseDto>
+        {
+            new TaskResponseDto { Id = 1, Title = "Task 1", IsCompleted = false, CreatedAt = DateTime.UtcNow },
+            new TaskResponseDto { Id = 2, Title = "Task 2", IsCompleted = true, CreatedAt = DateTime.UtcNow.AddDays(-1) }
+        };
+
+        _mockGetAllTasksUseCase.Setup(x => x.ExecuteAsync())
+                              .ReturnsAsync(expectedTasks);
+
+        // Act
+        var result = await _controller.GetAllTasks();
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(expectedTasks, okResult.Value);
+
+        _mockGetAllTasksUseCase.Verify(x => x.ExecuteAsync(), Times.Once);
+    }
+
+    [Fact]
+    public async Task GetAllTasks_WithEmptyList_ShouldReturnOkResultWithEmptyList()
+    {
+        // Arrange
+        var emptyTasks = new List<TaskResponseDto>();
+
+        _mockGetAllTasksUseCase.Setup(x => x.ExecuteAsync())
+                              .ReturnsAsync(emptyTasks);
+
+        // Act
+        var result = await _controller.GetAllTasks();
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(emptyTasks, okResult.Value);
+
+        _mockGetAllTasksUseCase.Verify(x => x.ExecuteAsync(), Times.Once);
+    }
+
+    [Fact]
+    public async Task GetTaskById_WithValidId_ShouldReturnOkResultWithTask()
+    {
+        // Arrange
+        var taskId = 1;
+        var expectedTask = new TaskResponseDto
+        {
+            Id = taskId,
+            Title = "Test Task",
+            IsCompleted = false,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _mockGetTaskByIdUseCase.Setup(x => x.ExecuteAsync(taskId))
+                              .ReturnsAsync(expectedTask);
+
+        // Act
+        var result = await _controller.GetTaskById(taskId);
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(expectedTask, okResult.Value);
+
+        _mockGetTaskByIdUseCase.Verify(x => x.ExecuteAsync(taskId), Times.Once);
+    }
+
+    [Fact]
+    public async Task GetTaskById_WithNonExistentId_ShouldReturnNotFoundResult()
+    {
+        // Arrange
+        var taskId = 999;
+
+        _mockGetTaskByIdUseCase.Setup(x => x.ExecuteAsync(taskId))
+                              .ReturnsAsync((TaskResponseDto?)null);
+
+        // Act
+        var result = await _controller.GetTaskById(taskId);
+
+        // Assert
+        var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
+        var response = notFoundResult.Value;
+        Assert.NotNull(response);
+
+        _mockGetTaskByIdUseCase.Verify(x => x.ExecuteAsync(taskId), Times.Once);
+    }
+
+    [Fact]
+    public async Task UpdateTask_WithValidData_ShouldReturnOkResultWithUpdatedTask()
+    {
+        // Arrange
+        var taskId = 1;
+        var updateTaskDto = new UpdateTaskDto { Title = "Updated Task", IsCompleted = true };
+        var expectedResponse = new TaskResponseDto
+        {
+            Id = taskId,
+            Title = "Updated Task",
+            IsCompleted = true,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _mockUpdateTaskUseCase.Setup(x => x.ExecuteAsync(taskId, updateTaskDto))
+                             .ReturnsAsync(expectedResponse);
+
+        // Act
+        var result = await _controller.UpdateTask(taskId, updateTaskDto);
+
+        // Assert
+        var okResult = Assert.IsType<OkObjectResult>(result);
+        Assert.Equal(expectedResponse, okResult.Value);
+
+        _mockUpdateTaskUseCase.Verify(x => x.ExecuteAsync(taskId, updateTaskDto), Times.Once);
+    }
+
+    [Fact]
+    public async Task UpdateTask_WithNonExistentId_ShouldReturnNotFoundResult()
+    {
+        // Arrange
+        var taskId = 999;
+        var updateTaskDto = new UpdateTaskDto { Title = "Updated Task", IsCompleted = true };
+
+        _mockUpdateTaskUseCase.Setup(x => x.ExecuteAsync(taskId, updateTaskDto))
+                             .ReturnsAsync((TaskResponseDto?)null);
+
+        // Act
+        var result = await _controller.UpdateTask(taskId, updateTaskDto);
+
+        // Assert
+        var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
+        var response = notFoundResult.Value;
+        Assert.NotNull(response);
+
+        _mockUpdateTaskUseCase.Verify(x => x.ExecuteAsync(taskId, updateTaskDto), Times.Once);
+    }
+
+    [Fact]
+    public async Task DeleteTask_WithValidId_ShouldReturnNoContentResult()
+    {
+        // Arrange
+        var taskId = 1;
+
+        _mockDeleteTaskUseCase.Setup(x => x.ExecuteAsync(taskId))
+                             .Returns(Task.CompletedTask);
+
+        // Act
+        var result = await _controller.DeleteTask(taskId);
+
+        // Assert
+        Assert.IsType<NoContentResult>(result);
+
+        _mockDeleteTaskUseCase.Verify(x => x.ExecuteAsync(taskId), Times.Once);
+    }
+
+    [Fact]
+    public async Task DeleteTask_UseCaseThrowsException_ShouldPropagateException()
+    {
+        // Arrange
+        var taskId = 1;
+        var expectedMessage = "Task not found";
+
+        _mockDeleteTaskUseCase.Setup(x => x.ExecuteAsync(taskId))
+                             .ThrowsAsync(new InvalidOperationException(expectedMessage));
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(
+            () => _controller.DeleteTask(taskId));
+
+        Assert.Equal(expectedMessage, exception.Message);
+        _mockDeleteTaskUseCase.Verify(x => x.ExecuteAsync(taskId), Times.Once);
+    }
+}

@@ -1,0 +1,98 @@
+﻿using Moq;
+using TodoList.Application.UseCases;
+using TodoList.Domain;
+using TodoList.Domain.Interfaces;
+using Xunit;
+
+namespace TodoList.Tests.UseCases;
+
+public class GetTaskByIdUseCaseTests
+{
+    private readonly Mock<ITaskRepository> _mockRepository;
+    private readonly GetTaskByIdUseCase _useCase;
+
+    public GetTaskByIdUseCaseTests()
+    {
+        _mockRepository = new Mock<ITaskRepository>();
+        _useCase = new GetTaskByIdUseCase(_mockRepository.Object);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithValidId_ShouldReturnTask()
+    {
+        var taskId = 1;
+        var expectedTask = new TaskEntity
+        {
+            Id = taskId,
+            Title = "Test Task",
+            IsCompleted = false,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _mockRepository.Setup(r => r.GetTaskById(taskId))
+                      .ReturnsAsync(expectedTask);
+
+        var result = await _useCase.ExecuteAsync(taskId);
+
+        Assert.NotNull(result);
+        Assert.Equal(expectedTask.Id, result.Id);
+        Assert.Equal(expectedTask.Title, result.Title);
+        Assert.Equal(expectedTask.IsCompleted, result.IsCompleted);
+        Assert.Equal(expectedTask.CreatedAt, result.CreatedAt);
+
+        _mockRepository.Verify(r => r.GetTaskById(taskId), Times.Once);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithNonExistentId_ShouldThrowException()
+    {
+        var taskId = 999;
+
+        _mockRepository.Setup(r => r.GetTaskById(taskId))
+                      .ReturnsAsync((TaskEntity?)null);
+
+        var exception = await Assert.ThrowsAsync<Exception>(() => _useCase.ExecuteAsync(taskId));
+        Assert.Equal($"Tarefa com ID {taskId} não encontrada.", exception.Message);
+
+        _mockRepository.Verify(r => r.GetTaskById(taskId), Times.Once);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithZeroId_ShouldThrowArgumentException()
+    {
+        var taskId = 0;
+
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => _useCase.ExecuteAsync(taskId));
+        Assert.Equal("Id deve ser maior que zero. (Parameter 'id')", exception.Message);
+        Assert.Equal("id", exception.ParamName);
+
+        _mockRepository.Verify(r => r.GetTaskById(It.IsAny<int>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithCompletedTask_ShouldReturnCompletedTask()
+    {
+        // Arrange
+        var taskId = 1;
+        var expectedTask = new TaskEntity
+        {
+            Id = taskId,
+            Title = "Completed Task",
+            IsCompleted = true,
+            CreatedAt = DateTime.UtcNow.AddDays(-1)
+        };
+
+        _mockRepository.Setup(r => r.GetTaskById(taskId))
+                      .ReturnsAsync(expectedTask);
+
+        var result = await _useCase.ExecuteAsync(taskId);
+
+        Assert.NotNull(result);
+        Assert.Equal(expectedTask.Id, result.Id);
+        Assert.Equal(expectedTask.Title, result.Title);
+        Assert.True(result.IsCompleted);
+        Assert.Equal(expectedTask.CreatedAt, result.CreatedAt);
+
+        _mockRepository.Verify(r => r.GetTaskById(taskId), Times.Once);
+    }
+}

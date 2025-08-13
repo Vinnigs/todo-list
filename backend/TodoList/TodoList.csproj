@@ -4,6 +4,8 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +13,10 @@
     <Content Remove="Infrastructure\Repository\**" />
     <EmbeddedResource Remove="Infrastructure\Repository\**" />
     <None Remove="Infrastructure\Repository\**" />
+    <Compile Remove="TodoList.Tests\**" />
+    <Content Remove="TodoList.Tests\**" />
+    <EmbeddedResource Remove="TodoList.Tests\**" />
+    <None Remove="TodoList.Tests\**" />
   </ItemGroup>
 
   <ItemGroup>

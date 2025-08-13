@@ -1,0 +1,59 @@
+using Moq;
+using TodoList.Application.UseCases;
+using TodoList.Domain;
+using TodoList.Domain.Interfaces;
+using Xunit;
+
+namespace TodoList.Tests.UseCases;
+
+public class DeleteTaskUseCaseTests
+{
+    private readonly Mock<ITaskRepository> _mockRepository;
+    private readonly DeleteTaskUseCase _useCase;
+
+    public DeleteTaskUseCaseTests()
+    {
+        _mockRepository = new Mock<ITaskRepository>();
+        _useCase = new DeleteTaskUseCase(_mockRepository.Object);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithValidId_ShouldDeleteTask()
+    {
+        // Arrange
+        var taskId = 1;
+        var existingTask = new TaskEntity
+        {
+            Id = taskId,
+            Title = "Task to Delete",
+            IsCompleted = false,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _mockRepository.Setup(r => r.GetTaskById(taskId))
+                      .ReturnsAsync(existingTask);
+        _mockRepository.Setup(r => r.DeleteTask(taskId))
+                      .Returns(Task.CompletedTask);
+
+        // Act
+        await _useCase.ExecuteAsync(taskId);
+
+        // Assert
+        _mockRepository.Verify(r => r.GetTaskById(taskId), Times.Once);
+        _mockRepository.Verify(r => r.DeleteTask(taskId), Times.Once);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithInvalidId_ShouldThrowArgumentException()
+    {
+        // Arrange
+        var taskId = 0;
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => _useCase.ExecuteAsync(taskId));
+        Assert.Equal("ID deve ser maior que zero", exception.Message);
+
+        _mockRepository.Verify(r => r.GetTaskById(It.IsAny<int>()), Times.Never);
+        _mockRepository.Verify(r => r.DeleteTask(It.IsAny<int>()), Times.Never);
+    }
+}

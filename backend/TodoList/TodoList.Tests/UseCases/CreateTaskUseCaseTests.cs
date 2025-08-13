@@ -1,0 +1,65 @@
+using Moq;
+using TodoList.Application.DTOs;
+using TodoList.Application.UseCases;
+using TodoList.Domain;
+using TodoList.Domain.Interfaces;
+using Xunit;
+
+namespace TodoList.Tests.UseCases;
+
+public class CreateTaskUseCaseTests
+{
+    private readonly Mock<ITaskRepository> _mockRepository;
+    private readonly CreateTaskUseCase _useCase;
+
+    public CreateTaskUseCaseTests()
+    {
+        _mockRepository = new Mock<ITaskRepository>();
+        _useCase = new CreateTaskUseCase(_mockRepository.Object);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithValidData_ShouldCreateTask()
+    {
+        // Arrange
+        var createTaskDto = new CreateTaskDto { Title = "Test Task" };
+        var expectedTask = new TaskEntity
+        {
+            Id = 1,
+            Title = "Test Task",
+            IsCompleted = false,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _mockRepository.Setup(r => r.CreateTask(It.IsAny<TaskEntity>()))
+                      .ReturnsAsync(expectedTask);
+
+        // Act
+        var result = await _useCase.ExecuteAsync(createTaskDto);
+
+        // Assert
+        Assert.NotNull(result);
+        Assert.Equal(expectedTask.Id, result.Id);
+        Assert.Equal(expectedTask.Title, result.Title);
+        Assert.Equal(expectedTask.IsCompleted, result.IsCompleted);
+        Assert.Equal(expectedTask.CreatedAt, result.CreatedAt);
+
+        _mockRepository.Verify(r => r.CreateTask(It.Is<TaskEntity>(t => 
+            t.Title == createTaskDto.Title && 
+            t.IsCompleted == false)), Times.Once);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithNullTitle_ShouldThrowArgumentException()
+    {
+        // Arrange
+        var createTaskDto = new CreateTaskDto { Title = null! };
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<ArgumentException>(() => _useCase.ExecuteAsync(createTaskDto));
+        Assert.Equal("Título é obrigatório. (Parameter 'Title')", exception.Message);
+        Assert.Equal("Title", exception.ParamName);
+
+        _mockRepository.Verify(r => r.CreateTask(It.IsAny<TaskEntity>()), Times.Never);
+    }
+}

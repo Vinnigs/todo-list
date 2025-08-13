@@ -1,0 +1,13 @@
+﻿<Project>
+  <PropertyGroup>
+    <VSTestUseMSBuildOutput>false</VSTestUseMSBuildOutput>
+    <VSTestCollectCodeCoverage>false</VSTestCollectCodeCoverage>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(IsTestProject)' == 'true'">
+    <EnableSourceLink>false</EnableSourceLink>
+    <EmbedUntrackedSources>false</EmbedUntrackedSources>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+</Project>

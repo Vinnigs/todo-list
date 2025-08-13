@@ -1,0 +1,38 @@
+<div *ngIf="totalPages() > 1" class="pagination-container">
+  
+  <div class="pagination-controls">
+    
+    <button 
+      type="button" 
+      class="pagination-btn prev-page"
+      [disabled]="!hasPrevious()"
+      (click)="previousPage()"
+      title="Página anterior">
+      ←
+    </button>
+    
+    <div class="page-numbers">
+      <button 
+        *ngFor="let page of visiblePages()" 
+        type="button"
+        class="pagination-btn page-number"
+        [class.current]="page === currentPageSignal()"
+        [class.ellipsis]="page === -1"
+        [disabled]="page === -1"
+        (click)="goToPage(page)"
+        [title]="page === -1 ? '' : 'Ir para página ' + page">
+        {{ page === -1 ? '...' : page }}
+      </button>
+    </div>
+    
+    <button 
+      type="button" 
+      class="pagination-btn next-page"
+      [disabled]="!hasNext()"
+      (click)="nextPage()"
+      title="Próxima página">
+      →
+    </button>
+    
+  </div>
+</div>

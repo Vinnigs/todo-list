@@ -1,0 +1,88 @@
+.task-item-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .checkbox-with-text {
+        display: flex;
+        gap: 8px;
+
+        input[type=checkbox] {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            cursor: pointer;
+            width: 24px;
+            height: 24px;
+            background-color: #ffffff;
+            border: 2px solid #cccccc;
+            border-radius: 100%;
+            transition: all 0.3s ease;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        input[type=checkbox]:checked {
+            background-color: #4CAF50;
+            border-color: #4CAF50;
+        }
+
+        input[type=checkbox]:checked::after {
+            content: "✓";
+            color: white;
+            font-size: 14px;
+            position: absolute;
+            left: 5px;
+            top: 1px;
+        }
+
+        input[type=checkbox]:hover {
+            border-color: #adadad;
+        }
+    }
+
+    .action-buttons {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .action-buttons button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 4px;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .action-buttons button:hover:not(:disabled) {
+        background-color: #f5f5f5;
+    }
+
+    .action-buttons button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .action-buttons button:disabled svg {
+        opacity: 0.5;
+    }
+}
+
+p {
+  margin: 0;
+  transition: all 0.3s ease;
+}
+
+p.completed {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+svg {
+    vertical-align: middle
+}

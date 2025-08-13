@@ -1,0 +1,31 @@
+<main>
+  <h1>To-Do List</h1>
+  
+  <app-new-task-form (taskCreated)="onTaskCreated($event)"></app-new-task-form>
+
+  <div *ngIf="error()" class="error">
+    {{ error() }}
+    <button (click)="loadTasks()">Tentar novamente</button>
+  </div>
+
+  <div class="task-items-wrapper">
+    <app-task-item
+      *ngFor="let task of paginatedTasks(); trackBy: trackByTaskId"
+      [task]="task"
+      (taskUpdated)="onTaskUpdated()"
+      (taskDeleted)="onTaskDeleted($event)">
+    </app-task-item>
+    
+    <div *ngIf="!isLoading() && !error() && totalItems() === 0" class="no-tasks">
+      <p>Nenhuma tarefa encontrada. Que tal criar uma?</p>
+    </div>
+  </div>
+  
+  <app-pagination
+    *ngIf="shouldShowPagination()"
+    [totalItems]="totalItems()"
+    [itemsPerPage]="itemsPerPage()"
+    [currentPage]="currentPage()"
+    (pageChanged)="onPageChanged($event)">
+  </app-pagination>
+</main>

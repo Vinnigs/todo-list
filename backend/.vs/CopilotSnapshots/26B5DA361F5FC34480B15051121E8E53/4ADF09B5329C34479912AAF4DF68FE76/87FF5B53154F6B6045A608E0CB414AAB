@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+  <RunConfiguration>
+    <MaxCpuCount>1</MaxCpuCount>
+    <ResultsDirectory>.\TestResults</ResultsDirectory>
+    <TestSessionTimeout>300000</TestSessionTimeout>
+    <TreatNoTestsAsError>false</TreatNoTestsAsError>
+    <DisableAppDomain>false</DisableAppDomain>
+    <DisableParallelization>false</DisableParallelization>
+  </RunConfiguration>
+  
+  <LoggerRunSettings>
+    <Loggers>
+      <Logger friendlyName="console" enabled="True">
+        <Configuration>
+          <Verbosity>quiet</Verbosity>
+        </Configuration>
+      </Logger>
+    </Loggers>
+  </LoggerRunSettings>
+
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/2.0" assemblyQualifiedName="Microsoft.VisualStudio.Coverage.DynamicCoverageDataCollector, Microsoft.VisualStudio.TraceCollector, Version=11.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+        <Configuration>
+          <CodeCoverage>
+            <ModulePaths>
+              <Exclude>
+                <ModulePath>.*CPPUnitTestFramework.*</ModulePath>
+                <ModulePath>.*\.Tests\..*</ModulePath>
+              </Exclude>
+            </ModulePaths>
+          </CodeCoverage>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+
+  <xUnit>
+    <MaxParallelThreads>1</MaxParallelThreads>
+    <AppDomain>ifAvailable</AppDomain>
+    <DiagnosticMessages>false</DiagnosticMessages>
+    <InternalDiagnosticMessages>false</InternalDiagnosticMessages>
+    <MethodDisplay>method</MethodDisplay>
+    <PreEnumerateTheories>false</PreEnumerateTheories>
+    <ShadowCopy>true</ShadowCopy>
+  </xUnit>
+</RunSettings>

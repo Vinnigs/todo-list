@@ -1,0 +1,133 @@
+/* ✅ Container principal da paginação minimalista */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+  padding: 20px;
+}
+
+/* ✅ Controles de navegação */
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ✅ Botões da paginação */
+.pagination-btn {
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  color: #333;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  min-width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+  transform: translateY(-1px);
+}
+
+.pagination-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.pagination-btn:disabled {
+  background-color: #f8f9fa;
+  border-color: #e9ecef;
+  color: #adb5bd;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ✅ Botões de navegação (anterior, próxima) */
+.prev-page,
+.next-page {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* ✅ Container dos números das páginas */
+.page-numbers {
+  display: flex;
+  gap: 4px;
+  margin: 0 8px;
+}
+
+/* ✅ Número da página atual */
+.page-number.current {
+  background-color: var(--primary-color, #7F35B2);
+  border-color: var(--primary-color, #7F35B2);
+  color: white;
+}
+
+.page-number.current:hover {
+  background-color: var(--primary-color, #7F35B2);
+  border-color: var(--primary-color, #7F35B2);
+  transform: none;
+}
+
+/* ✅ Reticências */
+.page-number.ellipsis {
+  background: transparent;
+  border: none;
+  color: #666;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ✅ Responsividade */
+@media (max-width: 768px) {
+  .pagination-container {
+    margin-top: 24px;
+    padding: 16px;
+  }
+  
+  .pagination-controls {
+    gap: 6px;
+  }
+  
+  .pagination-btn {
+    min-width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+  
+  .prev-page,
+  .next-page {
+    font-size: 14px;
+  }
+  
+  .page-numbers {
+    gap: 2px;
+    margin: 0 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pagination-controls {
+    gap: 4px;
+  }
+  
+  .pagination-btn {
+    min-width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+  
+  .prev-page,
+  .next-page {
+    font-size: 12px;
+  }
+}

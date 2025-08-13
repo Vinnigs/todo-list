@@ -1,0 +1,55 @@
+<div *ngIf="isVisible" class="modal-overlay" (click)="onOverlayClick($event)">
+  
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    
+    <div class="modal-header">
+      <h3>Editar Tarefa</h3>
+      <button type="button" class="close-button" (click)="closeModal()" aria-label="Fechar">
+        ✕
+      </button>
+    </div>
+    
+    <div class="modal-body">
+      <div class="input-group">
+        <label for="task-title">Título da Tarefa:</label>
+        <input 
+          id="task-title"
+          type="text" 
+          [value]="editedTitle()"
+          (input)="updateTitle($event)"
+          (keydown)="onKeyPress($event)"
+          placeholder="Digite o título da tarefa (mín. 3 caracteres)..." 
+          [disabled]="isSubmitting()"
+          class="task-input"
+          [class.error]="showValidationTooltip()"
+          autofocus
+        />
+        
+        <div class="tooltip-container">
+          <div *ngIf="showValidationTooltip()" class="validation-tooltip">
+            {{ validationMessage }}
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal-footer">
+      <button 
+        type="button" 
+        class="cancel-button"
+        (click)="onCancel()"
+        [disabled]="isSubmitting()">
+        Cancelar
+      </button>
+      
+      <button 
+        type="button" 
+        class="confirm-button"
+        (click)="onConfirm()"
+        [disabled]="!canConfirm()">
+        {{ isSubmitting() ? 'Salvando...' : 'Confirmar' }}
+      </button>
+    </div>
+    
+  </div>
+</div>
