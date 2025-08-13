@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "H:\\projetos\\todo-challenge\\backend\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{30BBD852-8000-4F86-9460-69D0ACC0BBB3}|TodoList\\TodoList.csproj|h:\\projetos\\todo-challenge\\backend\\todolist\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}|",
+      "RelativeMoniker": "D:0:0:{30BBD852-8000-4F86-9460-69D0ACC0BBB3}|TodoList\\TodoList.csproj|solutionrelative:todolist\\readme.md||{EFC0BB08-EA7D-40C6-A696-C870411A895B}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{D0D260CE-1708-46BA-AD3B-19D031A378A7}|TodoList\\TodoList.Tests\\TodoList.Tests.csproj|h:\\projetos\\todo-challenge\\backend\\todolist\\todolist.tests\\todolist.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{D0D260CE-1708-46BA-AD3B-19D031A378A7}|TodoList\\TodoList.Tests\\TodoList.Tests.csproj|solutionrelative:todolist\\todolist.tests\\todolist.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
@@ -66,11 +70,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "README.md",
+              "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\README.md",
+              "RelativeDocumentMoniker": "TodoList\\README.md",
+              "ToolTip": "H:\\projetos\\todo-challenge\\backend\\TodoList\\README.md",
+              "RelativeToolTip": "TodoList\\README.md",
+              "ViewState": "AgIAADAAAAAAAAAAAAAjwA0AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001818|",
+              "WhenOpened": "2025-08-13T19:51:59.955Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "TodoList.csproj",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.csproj",
               "RelativeDocumentMoniker": "TodoList\\TodoList.csproj",
@@ -83,7 +100,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "TaskResponseDtoTests.cs",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.Tests\\DTOs\\TaskResponseDtoTests.cs",
               "RelativeDocumentMoniker": "TodoList\\TodoList.Tests\\DTOs\\TaskResponseDtoTests.cs",
@@ -94,7 +111,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "TaskEntityTests.cs",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.Tests\\Domain\\TaskEntityTests.cs",
               "RelativeDocumentMoniker": "TodoList\\TodoList.Tests\\Domain\\TaskEntityTests.cs",
@@ -105,7 +122,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "GlobalExceptionHandlingMiddlewareTests.cs",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.Tests\\Middleware\\GlobalExceptionHandlingMiddlewareTests.cs",
               "RelativeDocumentMoniker": "TodoList\\TodoList.Tests\\Middleware\\GlobalExceptionHandlingMiddlewareTests.cs",
@@ -116,20 +133,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "TodoList.Tests.csproj",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.Tests\\TodoList.Tests.csproj",
               "RelativeDocumentMoniker": "TodoList\\TodoList.Tests\\TodoList.Tests.csproj",
               "ToolTip": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.Tests\\TodoList.Tests.csproj",
               "RelativeToolTip": "TodoList\\TodoList.Tests\\TodoList.Tests.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
               "WhenOpened": "2025-08-13T00:04:59.557Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "TaskControllerTests.cs",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.Tests\\Controllers\\TaskControllerTests.cs",
               "RelativeDocumentMoniker": "TodoList\\TodoList.Tests\\Controllers\\TaskControllerTests.cs",
@@ -140,7 +157,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "CreateTaskDtoTests.cs",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.Tests\\DTOs\\CreateTaskDtoTests.cs",
               "RelativeDocumentMoniker": "TodoList\\TodoList.Tests\\DTOs\\CreateTaskDtoTests.cs",
@@ -151,7 +168,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "UpdateTaskDtoTests.cs",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.Tests\\DTOs\\UpdateTaskDtoTests.cs",
               "RelativeDocumentMoniker": "TodoList\\TodoList.Tests\\DTOs\\UpdateTaskDtoTests.cs",
@@ -162,7 +179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "GetAllTasksUseCaseTests.cs",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.Tests\\UseCases\\GetAllTasksUseCaseTests.cs",
               "RelativeDocumentMoniker": "TodoList\\TodoList.Tests\\UseCases\\GetAllTasksUseCaseTests.cs",
@@ -175,7 +192,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "UpdateTaskUseCaseTests.cs",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.Tests\\UseCases\\UpdateTaskUseCaseTests.cs",
               "RelativeDocumentMoniker": "TodoList\\TodoList.Tests\\UseCases\\UpdateTaskUseCaseTests.cs",
@@ -188,7 +205,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "GetTaskByIdUseCaseTests.cs",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.Tests\\UseCases\\GetTaskByIdUseCaseTests.cs",
               "RelativeDocumentMoniker": "TodoList\\TodoList.Tests\\UseCases\\GetTaskByIdUseCaseTests.cs",
@@ -201,7 +218,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "Program.cs",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\Program.cs",
               "RelativeDocumentMoniker": "TodoList\\Program.cs",
@@ -214,7 +231,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "TodoList.csproj",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.csproj",
               "RelativeDocumentMoniker": "TodoList\\TodoList.csproj",
@@ -227,7 +244,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "TodoList.sln",
               "DocumentMoniker": "H:\\projetos\\todo-challenge\\backend\\TodoList\\TodoList.sln",
               "RelativeDocumentMoniker": "TodoList\\TodoList.sln",

@@ -2,11 +2,13 @@
 backend/TodoList/bin/
 backend/TodoList/obj/
 backend/TodoList/.vs/
+backend/.vs/
 
 # Angular
-frontend/todo-list-frontend/node_modules/
-frontend/todo-list-frontend/dist/
-frontend/todo-list-frontend/.angular/
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.vs/
 
 # IDE
 .vscode/

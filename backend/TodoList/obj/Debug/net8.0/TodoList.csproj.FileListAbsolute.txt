@@ -134,3 +134,4 @@ H:\projetos\todo-challenge\backend\TodoList\obj\Debug\net8.0\refint\TodoList.dll
 H:\projetos\todo-challenge\backend\TodoList\obj\Debug\net8.0\TodoList.pdb
 H:\projetos\todo-challenge\backend\TodoList\obj\Debug\net8.0\TodoList.genruntimeconfig.cache
 H:\projetos\todo-challenge\backend\TodoList\obj\Debug\net8.0\ref\TodoList.dll
+H:\projetos\todo-challenge\backend\TodoList\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

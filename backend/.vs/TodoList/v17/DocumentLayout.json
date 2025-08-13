@@ -95,8 +95,7 @@
               "RelativeToolTip": "TodoList\\TodoList.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-08-13T00:21:49.631Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-13T00:21:49.631Z"
             },
             {
               "$type": "Document",
@@ -141,8 +140,7 @@
               "RelativeToolTip": "TodoList\\TodoList.Tests\\TodoList.Tests.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-08-13T00:04:59.557Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-13T00:04:59.557Z"
             },
             {
               "$type": "Document",
@@ -187,8 +185,7 @@
               "RelativeToolTip": "TodoList\\TodoList.Tests\\UseCases\\GetAllTasksUseCaseTests.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAEMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-13T00:29:04.569Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-13T00:29:04.569Z"
             },
             {
               "$type": "Document",
@@ -200,8 +197,7 @@
               "RelativeToolTip": "TodoList\\TodoList.Tests\\UseCases\\UpdateTaskUseCaseTests.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAE8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-13T00:29:52.757Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-13T00:29:52.757Z"
             },
             {
               "$type": "Document",
@@ -213,8 +209,7 @@
               "RelativeToolTip": "TodoList\\TodoList.Tests\\UseCases\\GetTaskByIdUseCaseTests.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-13T00:29:21.331Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-13T00:29:21.331Z"
             },
             {
               "$type": "Document",
@@ -226,8 +221,7 @@
               "RelativeToolTip": "TodoList\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-13T00:25:49.898Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-13T00:25:49.898Z"
             },
             {
               "$type": "Document",
@@ -239,8 +233,7 @@
               "RelativeToolTip": "TodoList\\TodoList.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-08-13T00:16:50.007Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-13T00:16:50.007Z"
             },
             {
               "$type": "Document",
@@ -252,8 +245,7 @@
               "RelativeToolTip": "TodoList\\TodoList.sln",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002855|",
-              "WhenOpened": "2025-08-12T23:41:59.404Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-12T23:41:59.404Z"
             }
           ]
         }
