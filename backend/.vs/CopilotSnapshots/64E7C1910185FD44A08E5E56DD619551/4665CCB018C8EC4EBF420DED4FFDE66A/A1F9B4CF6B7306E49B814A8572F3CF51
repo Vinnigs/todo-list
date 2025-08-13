@@ -1,0 +1,13 @@
+﻿using Xunit;
+using Moq;
+using TodoList.Application.DTOs;
+using TodoList.Application.UseCases;
+using TodoList.Domain;
+using TodoList.Domain.Interfaces;
+
+namespace TodoList.Tests.UseCases;
+
+public class GetTaskByIdUseCaseTests
+{
+    // ...existing code...
+}

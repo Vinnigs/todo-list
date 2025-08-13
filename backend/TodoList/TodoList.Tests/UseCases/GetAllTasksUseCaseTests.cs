@@ -1,0 +1,68 @@
+using Moq;
+using TodoList.Application.DTOs;
+using TodoList.Application.UseCases;
+using TodoList.Domain;
+using TodoList.Domain.Interfaces;
+using Xunit;
+
+namespace TodoList.Tests.UseCases;
+
+public class GetAllTasksUseCaseTests
+{
+    private readonly Mock<ITaskRepository> _mockRepository;
+    private readonly GetAllTasksUseCase _useCase;
+
+    public GetAllTasksUseCaseTests()
+    {
+        _mockRepository = new Mock<ITaskRepository>();
+        _useCase = new GetAllTasksUseCase(_mockRepository.Object);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_ShouldReturnAllTasks()
+    {
+        // Arrange
+        var expectedTasks = new List<TaskEntity>
+        {
+            new() { Id = 1, Title = "Task 1", IsCompleted = false, CreatedAt = DateTime.UtcNow },
+            new() { Id = 2, Title = "Task 2", IsCompleted = true, CreatedAt = DateTime.UtcNow.AddHours(-1) }
+        };
+
+        _mockRepository.Setup(r => r.GetAllTasks())
+                      .ReturnsAsync(expectedTasks);
+
+        // Act
+        var result = await _useCase.ExecuteAsync();
+
+        // Assert
+        Assert.NotNull(result);
+        var resultList = result.ToList();
+        Assert.Equal(2, resultList.Count);
+        Assert.Equal("Task 1", resultList[0].Title);
+        Assert.Equal("Task 2", resultList[1].Title);
+        Assert.False(resultList[0].IsCompleted);
+        Assert.True(resultList[1].IsCompleted);
+
+        _mockRepository.Verify(r => r.GetAllTasks(), Times.Once);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithEmptyRepository_ShouldReturnEmptyList()
+    {
+        // Arrange
+        var expectedTasks = new List<TaskEntity>();
+
+        _mockRepository.Setup(r => r.GetAllTasks())
+                      .ReturnsAsync(expectedTasks);
+
+        // Act
+        var result = await _useCase.ExecuteAsync();
+
+        // Assert
+        Assert.NotNull(result);
+        var resultList = result.ToList();
+        Assert.Empty(resultList);
+
+        _mockRepository.Verify(r => r.GetAllTasks(), Times.Once);
+    }
+}

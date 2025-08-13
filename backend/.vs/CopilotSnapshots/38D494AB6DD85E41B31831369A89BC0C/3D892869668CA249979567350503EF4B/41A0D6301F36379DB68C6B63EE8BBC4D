@@ -1,0 +1,75 @@
+﻿# TodoList API 📝
+
+Uma API RESTful moderna para gerenciamento de tarefas (To-Do List) construída com .NET 8, seguindo princípios de Clean Architecture e boas práticas de desenvolvimento.
+
+## 🚀 Tecnologias Utilizadas
+
+- **.NET 8** - Framework principal
+- **ASP.NET Core Web API** - Para criação da API REST
+- **Entity Framework Core** - ORM para acesso a dados
+- **SQLite** - Banco de dados leve e portátil
+- **Swagger/OpenAPI** - Documentação automática da API
+- **xUnit** - Framework para testes unitários
+- **Moq** - Library para mocking em testes
+- **Clean Architecture** - Arquitetura em camadas
+
+## 📋 Funcionalidades
+
+- ✅ **Criar tarefa** - Adicionar nova tarefa à lista
+- ✅ **Listar tarefas** - Visualizar todas as tarefas
+- ✅ **Buscar tarefa** - Obter tarefa específica por ID
+- ✅ **Atualizar tarefa** - Modificar título e status de conclusão
+- ✅ **Excluir tarefa** - Remover tarefa da lista
+- ✅ **Tratamento global de exceções** - Middleware para captura de erros
+- ✅ **Validação de dados** - Validação automática de DTOs
+- ✅ **Documentação automática** - Swagger UI integrado
+- ✅ **CORS configurado** - Suporte para aplicações frontend
+
+## 🛠️ Configuração e Execução
+
+### Pré-requisitos
+
+- [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
+- IDE de sua preferência (Visual Studio, VS Code, Rider)
+
+### Instalação
+
+1. **Clone o repositório**
+   ```bash
+   git clone <url-do-repositorio>
+   cd TodoList
+   ```
+
+2. **Restaure as dependências**
+   ```bash
+   dotnet restore
+   ```
+
+3. **Execute as migrações do banco de dados**
+   ```bash
+   dotnet ef database update
+   ```
+
+4. **Execute a aplicação**
+   ```bash
+   dotnet run
+   ```
+
+5. **Execute os testes**
+   ```bash
+   # Executar todos os testes
+   dotnet test
+   
+   # Executar testes com informações detalhadas
+   dotnet test --verbosity normal
+   
+   # Executar testes com relatório de cobertura
+   dotnet test --collect:"XPlat Code Coverage"
+   
+   # Executar testes de um projeto específico
+   dotnet test TodoList.Tests/TodoList.Tests.csproj
+   ```
+
+6. **Acesse a documentação**
+   - Swagger UI: `https://localhost:7xxx/swagger`
+   - API Base URL: `https://localhost:7xxx/api`

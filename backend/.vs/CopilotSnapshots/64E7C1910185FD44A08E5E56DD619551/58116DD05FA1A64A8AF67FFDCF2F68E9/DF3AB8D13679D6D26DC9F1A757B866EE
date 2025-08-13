@@ -1,0 +1,139 @@
+﻿using Xunit;
+using Moq;
+using TodoList.Application.UseCases;
+using TodoList.Domain;
+using TodoList.Domain.Interfaces;
+
+namespace TodoList.Tests.UseCases;
+
+public class DeleteTaskUseCaseTests
+{
+    private readonly Mock<ITaskRepository> _mockRepository;
+    private readonly DeleteTaskUseCase _useCase;
+
+    public DeleteTaskUseCaseTests()
+    {
+        _mockRepository = new Mock<ITaskRepository>();
+        _useCase = new DeleteTaskUseCase(_mockRepository.Object);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithValidId_ShouldDeleteTaskSuccessfully()
+    {
+        // Arrange
+        var taskId = 1;
+        var existingTask = new TaskEntity
+        {
+            Id = taskId,
+            Title = "Test Task",
+            IsCompleted = false,
+            CreatedAt = DateTime.UtcNow
+        };
+
+        _mockRepository.Setup(r => r.GetTaskById(taskId))
+                      .ReturnsAsync(existingTask);
+        _mockRepository.Setup(r => r.DeleteTask(taskId))
+                      .Returns(Task.CompletedTask);
+
+        // Act
+        await _useCase.ExecuteAsync(taskId);
+
+        // Assert
+        _mockRepository.Verify(r => r.GetTaskById(taskId), Times.Once);
+        _mockRepository.Verify(r => r.DeleteTask(taskId), Times.Once);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithInvalidId_ShouldThrowArgumentException()
+    {
+        // Arrange
+        var invalidId = 0;
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<ArgumentException>(
+            () => _useCase.ExecuteAsync(invalidId));
+
+        Assert.Equal("ID deve ser maior que zero", exception.Message);
+        _mockRepository.Verify(r => r.GetTaskById(It.IsAny<int>()), Times.Never);
+        _mockRepository.Verify(r => r.DeleteTask(It.IsAny<int>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithNegativeId_ShouldThrowArgumentException()
+    {
+        // Arrange
+        var negativeId = -1;
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<ArgumentException>(
+            () => _useCase.ExecuteAsync(negativeId));
+
+        Assert.Equal("ID deve ser maior que zero", exception.Message);
+        _mockRepository.Verify(r => r.GetTaskById(It.IsAny<int>()), Times.Never);
+        _mockRepository.Verify(r => r.DeleteTask(It.IsAny<int>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WithNonExistentId_ShouldThrowInvalidOperationException()
+    {
+        // Arrange
+        var taskId = 999;
+
+        _mockRepository.Setup(r => r.GetTaskById(taskId))
+                      .ReturnsAsync((TaskEntity?)null);
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<InvalidOperationException>(
+            () => _useCase.ExecuteAsync(taskId));
+
+        Assert.Equal($"Tarefa com ID {taskId} não encontrada.", exception.Message);
+        _mockRepository.Verify(r => r.GetTaskById(taskId), Times.Once);
+        _mockRepository.Verify(r => r.DeleteTask(It.IsAny<int>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_GetTaskByIdThrowsException_ShouldPropagateException()
+    {
+        // Arrange
+        var taskId = 1;
+        var expectedMessage = "Database error";
+
+        _mockRepository.Setup(r => r.GetTaskById(taskId))
+                      .ThrowsAsync(new Exception(expectedMessage));
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<Exception>(
+            () => _useCase.ExecuteAsync(taskId));
+
+        Assert.Equal(expectedMessage, exception.Message);
+        _mockRepository.Verify(r => r.DeleteTask(It.IsAny<int>()), Times.Never);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_DeleteTaskThrowsException_ShouldPropagateException()
+    {
+        // Arrange
+        var taskId = 1;
+        var existingTask = new TaskEntity
+        {
+            Id = taskId,
+            Title = "Test Task",
+            IsCompleted = false,
+            CreatedAt = DateTime.UtcNow
+        };
+        var expectedMessage = "Database delete error";
+
+        _mockRepository.Setup(r => r.GetTaskById(taskId))
+                      .ReturnsAsync(existingTask);
+        _mockRepository.Setup(r => r.DeleteTask(taskId))
+                      .ThrowsAsync(new Exception(expectedMessage));
+
+        // Act & Assert
+        var exception = await Assert.ThrowsAsync<Exception>(
+            () => _useCase.ExecuteAsync(taskId));
+
+        Assert.Equal(expectedMessage, exception.Message);
+        _mockRepository.Verify(r => r.GetTaskById(taskId), Times.Once);
+        _mockRepository.Verify(r => r.DeleteTask(taskId), Times.Once);
+    }
+}

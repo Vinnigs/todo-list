@@ -22,6 +22,17 @@ builder.Services.AddSwaggerGen(c =>
     c.EnableAnnotations();
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .WithExposedHeaders("*");
+    });
+});
+
 builder.Services.AddDbContext<TodoContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -41,6 +52,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
 
 var app = builder.Build();
 
+app.UseCors("AllowAll");
 app.UseGlobalExceptionHandling();
 
 if (app.Environment.IsDevelopment())
